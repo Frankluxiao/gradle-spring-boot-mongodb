@@ -3,6 +3,7 @@ package crud.spring.dao;
 import com.mongodb.WriteResult;
 import crud.spring.DataSourceConfig;
 import crud.spring.entity.Employee;
+import dev.morphia.Datastore;
 import dev.morphia.Key;
 import dev.morphia.query.Query;
 
@@ -16,11 +17,12 @@ import java.util.UUID;
 public class EmployeeDAO {
 
     @Autowired
-    private DataSourceConfig dataSourceConfig;
+    private Datastore datastore;
 
 
     public List<Employee> getEmployees() {
-        return dataSourceConfig.datastore()
+
+        return datastore
                 .createQuery(Employee.class)
                 .find()
                 .toList();
@@ -28,13 +30,13 @@ public class EmployeeDAO {
 
     public Key<Employee> create(Employee employee) {
 
-        return dataSourceConfig.datastore()
+        return datastore
                 .save(employee);
     }
 
     public Employee get(UUID employeeId) {
 
-        return dataSourceConfig.datastore()
+        return datastore
                 .createQuery(Employee.class)
                 .field("_id")
                 .equal(employeeId)
@@ -43,18 +45,18 @@ public class EmployeeDAO {
 
     public Key<Employee> update(Employee employee) {
 
-        return dataSourceConfig.datastore()
+        return datastore
                 .save(employee);
     }
 
     public WriteResult delete(UUID employeeId) {
 
-        Query<Employee> employee = dataSourceConfig.datastore()
+        Query<Employee> employee = datastore
                 .createQuery(Employee.class)
                 .field("_id")
                 .equal(employeeId);
 
-        return dataSourceConfig.datastore()
+        return datastore
                 .delete(employee);
     }
 }
