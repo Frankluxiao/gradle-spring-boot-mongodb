@@ -54,6 +54,8 @@ dependencies {
     }
 
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.8.5'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.11.1'
+    compile 'dev.morphia.morphia:core:1.5.4'
 }
 
 application {

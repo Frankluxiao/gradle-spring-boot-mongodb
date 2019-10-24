@@ -1,5 +1,8 @@
-package crud.spring;
+package crud.spring.controller;
 
+import com.mongodb.WriteResult;
+import crud.spring.entity.Employee;
+import crud.spring.serivce.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class EmployeeController {
 
     @Autowired
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     // URL:
     // http://localhost:8080/SomeContextPath/employees
@@ -27,65 +31,61 @@ public class EmployeeController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Employee> getEmployees() {
-        return employeeDAO.getAllEmployees();
+
+        return employeeService.getEmployees();
+    }
+
+    // URL:
+    // http://localhost:8080/SomeContextPath/employee
+    // http://localhost:8080/SomeContextPath/employee.xml
+    // http://localhost:8080/SomeContextPath/employee.json
+    @RequestMapping(value = "/employee",
+            method = RequestMethod.POST,
+            produces = { MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public Employee create(@RequestBody Employee employee) {
+
+        return employeeService.create(employee);
     }
 
     // URL:
     // http://localhost:8080/SomeContextPath/employee/{empNo}
     // http://localhost:8080/SomeContextPath/employee/{empNo}.xml
     // http://localhost:8080/SomeContextPath/employee/{empNo}.json
-    @RequestMapping(value = "/employee/{employNumber}",
+    @RequestMapping(value = "/employee/{employeeId}",
             method = RequestMethod.GET,
             produces = { MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Employee getEmployee(@PathVariable("employNumber") String employNumber) {
-        return employeeDAO.getEmployee(employNumber);
+    public Employee get(@PathVariable("employeeId") UUID employeeId) {
+
+        return employeeService.get(employeeId);
     }
 
     // URL:
     // http://localhost:8080/SomeContextPath/employee
     // http://localhost:8080/SomeContextPath/employee.xml
     // http://localhost:8080/SomeContextPath/employee.json
-
-    @RequestMapping(value = "/employee",
-            method = RequestMethod.POST,
-            produces = { MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE })
-    @ResponseBody
-    public Employee addEmployee(@RequestBody Employee employee) {
-
-        System.out.println("(Service Side) Creating employee: " + employee.getEmployNumber());
-
-        return employeeDAO.addEmployee(employee);
-    }
-
-    // URL:
-    // http://localhost:8080/SomeContextPath/employee
-    // http://localhost:8080/SomeContextPath/employee.xml
-    // http://localhost:8080/SomeContextPath/employee.json
-    @RequestMapping(value = "/employee",
+    @RequestMapping(value = "/employee/{employeeId}",
             method = RequestMethod.PUT,
             produces = { MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Employee updateEmployee(@RequestBody Employee emp) {
+    public Employee update(@PathVariable("employeeId") UUID employeeId,
+                           @RequestBody Employee employee) {
 
-        System.out.println("(Service Side) Editing employee: " + emp.getEmployNumber());
-
-        return employeeDAO.updateEmployee(emp);
+        return employeeService.update(employeeId, employee);
     }
 
     // URL:
     // http://localhost:8080/SomeContextPath/employee/{empNo}
-    @RequestMapping(value = "/employee/{empNo}", //
+    @RequestMapping(value = "/employee/{employeeId}", //
             method = RequestMethod.DELETE, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public void deleteEmployee(@PathVariable("empNo") String empNo) {
+    public WriteResult delete(@PathVariable("employeeId") UUID employeeId) {
 
-        System.out.println("(Service Side) Deleting employee: " + empNo);
-
-        employeeDAO.deleteEmployee(empNo);
+        return employeeService.delete(employeeId);
     }
 }
