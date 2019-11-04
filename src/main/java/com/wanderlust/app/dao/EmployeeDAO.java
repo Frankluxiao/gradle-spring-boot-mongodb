@@ -1,8 +1,7 @@
-package crud.spring.dao;
+package com.wanderlust.app.dao;
 
 import com.mongodb.WriteResult;
-import crud.spring.DataSourceConfig;
-import crud.spring.entity.Employee;
+import com.wanderlust.app.entity.Employee;
 import dev.morphia.Datastore;
 import dev.morphia.Key;
 import dev.morphia.query.Query;

@@ -1,4 +1,4 @@
-package crud.spring.entity;
+package com.wanderlust.app.entity;
 
 import dev.morphia.annotations.Embedded;
 import lombok.AllArgsConstructor;

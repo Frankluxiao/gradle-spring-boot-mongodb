@@ -1,8 +1,8 @@
-package crud.spring.controller;
+package com.wanderlust.app.controller;
 
 import com.mongodb.WriteResult;
-import crud.spring.entity.Employee;
-import crud.spring.serivce.EmployeeService;
+import com.wanderlust.app.entity.Employee;
+import com.wanderlust.app.serivce.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;

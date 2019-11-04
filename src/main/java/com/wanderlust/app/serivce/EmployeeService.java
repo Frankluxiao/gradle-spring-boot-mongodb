@@ -1,8 +1,8 @@
-package crud.spring.serivce;
+package com.wanderlust.app.serivce;
 
 import com.mongodb.WriteResult;
-import crud.spring.dao.EmployeeDAO;
-import crud.spring.entity.Employee;
+import com.wanderlust.app.dao.EmployeeDAO;
+import com.wanderlust.app.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

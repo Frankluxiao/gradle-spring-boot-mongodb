@@ -1,4 +1,4 @@
-package crud.spring;
+package com.wanderlust.app;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
@@ -6,7 +6,6 @@ import dev.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class DataSourceConfig {

@@ -1,6 +1,5 @@
-package crud.spring.entity;
+package com.wanderlust.app.entity;
 
-import crud.spring.entity.Address;
 import dev.morphia.annotations.Embedded;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
